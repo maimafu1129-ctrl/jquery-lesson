@@ -18,9 +18,9 @@
   <script src="../../common/js/jquery.js"></script>
   <script>
     $(function () {
-      let encountHtml = '<button class="btn search-btn">ポケモンを探す</button>';
+      let encountHtml = '<button class="btn search-btn" id="pokemon_search">ポケモンを探す</button>';
       $('#wrapper').html(encountHtml);
-      $('#wrapper').on('click', ".search-btn", function () {
+      $('#wrapper').on('click', '#pokemon_search', function () {
         let randomId = Math.floor(Math.random() * 151) + 1;
         let monsterUrl = 'https://pokeapi.co/api/v2/pokemon/' + randomId;
         $.ajax({
@@ -40,42 +40,43 @@
         });
         let choices =
           `
-          <p class="name"></p> 
-          <div>
-            <img class="img" src="" alt="">
+            <p class="name"></p> 
+            <div>
+              <img class="img" src="" alt="">
             </div>
             <div>
               <button class="btn" id="catch">捕まえる</button>
               <button class="btn" data-js="reset">逃げる</button>
-              </div>
-              `
+            </div>
+          `
         $('#wrapper').html(choices);
         $('[data-js="reset"]').on("click", function () {
           $(".wrapper").html(encountHtml);
         })
         $('#catch').on('click', function () {
-          console.log(Math.random());
           if (Math.random() < 0.5) {
             let doneHtml =
-              `<div>
-                    <p class="name">ゲットしました</p>
-                    <div>
+              `
+                <div>
+                  <p class="name">ゲットしました</p>
+                  <div>
                     <img class="img" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png" alt="ポケモンボールの画像">
-                    </div>
-                    <button class="btn" data-js="reset">戻る</button>
-                    `
+                  </div>
+                  <button class="btn" data-js="reset">戻る</button>
+                </div>
+              `
             $('#wrapper').html(doneHtml);
             $('[data-js="reset"]').on("click", function () {
               $(".wrapper").html(encountHtml);
             })
-
           } else {
             let failHtml =
-              `<div>
-                      <p class="text">逃げられてしまった...</p>
-                      <button class="btn" data-js="reset">戻る</button>
-                      </div>
-                      `
+              `
+                <div>
+                  <p class="text">逃げられてしまった...</p>
+                  <button class="btn" data-js="reset">戻る</button>
+                </div>
+              `
             $('#wrapper').html(failHtml);
             $('[data-js="reset"]').on("click", function () {
               $(".wrapper").html(encountHtml);
